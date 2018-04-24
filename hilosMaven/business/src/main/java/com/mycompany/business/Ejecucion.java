@@ -11,7 +11,8 @@ import static java.lang.Thread.sleep;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- *
+ * Clase Ejecucion
+ * 
  * @author ANDERSON
  */
 public class Ejecucion {
@@ -20,6 +21,15 @@ public class Ejecucion {
         
     }
     
+    /**
+     * Metodo donde se ejecuta todo el proceso de la llamadas en hilos
+     * 
+     * @param numeroLlamadas            Cantidad de llamadas
+     * @param cantOperador              Cantidad de operadores
+     * @param cantSupervisor            Cantidad de supervisores
+     * @param cantDirector              Cantidad de directores
+     * @throws InterruptedException 
+     */
     public void ejecucionProcesos(int numeroLlamadas,
                                   int cantOperador,
                                   int cantSupervisor,
@@ -45,8 +55,6 @@ public class Ejecucion {
             dispatcher[i].join(); 
         }    
         
-    }
-    
-    
+    }  
     
 }

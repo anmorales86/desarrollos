@@ -6,15 +6,25 @@
 package com.mycompany.service;
 
 import com.mycompany.business.Ejecucion;
-import java.util.Scanner;
+
 
 /**
- *
+ * Clase principal donde inicia la ejecucion del proceso de hilos
+ * 
  * @author ANDERSON
  */
 public class Proceso 
 {
     
+    /**
+     * Metodo que se inicia la ejecucion del proceso
+     * 
+     * @param numeroLlamadas            Cantidad de llamadas
+     * @param cantOperador              Cantidad de operadores
+     * @param cantSupervisor            Cantidad de supervisores
+     * @param cantDirector              Cantidad de directores
+     * @throws InterruptedException 
+     */
     public void llamarProceso(int numeroLlamadas,
                               int cantOperador,
                               int cantSupervisor,

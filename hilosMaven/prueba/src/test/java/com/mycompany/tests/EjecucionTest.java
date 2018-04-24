@@ -11,7 +11,8 @@ import java.util.logging.Logger;
 import junit.framework.TestCase;
 
 /**
- *
+ * Clase Test Unitario
+ * 
  * @author ANDERSON
  */
 public class EjecucionTest extends TestCase {
@@ -33,18 +34,18 @@ public class EjecucionTest extends TestCase {
     }
     
     
-    public void testLlamadasMas10() {
+    public void testLlamadasHilos() {
         try {
             proceso = new Proceso();
-            int numeroLlamadas = 20;
-            int cantOperador = 6;
-            int cantSupervisor = 3;
-            int cantDirector = 1;
+            int numeroLlamadas = 20;        //Cantidad de llamadas
+            int cantOperador = 6;           //Cantidad de operador
+            int cantSupervisor = 3;         //Cantidad de supervisor
+            int cantDirector = 1;           //Cantidad de director
             proceso.llamarProceso(numeroLlamadas,
                                   cantOperador,
                                   cantSupervisor,
                                   cantDirector);
-        } catch (Exception ex) {
+        } catch (InterruptedException ex) {
             Logger.getLogger(EjecucionTest.class.getName()).log(Level.SEVERE, null, ex);
         }
      }

@@ -5,8 +5,6 @@
  */
 package com.mycompany.entities;
 
-import java.util.Random;
-
 /**
  * Clase principal de Empleados
  * 

@@ -15,9 +15,9 @@ import java.io.Serializable;
 public class Dispatcher  extends Thread  implements Serializable
 { 
     
-    private int id; 
-    private int tiempoLlamada; 
-    private Employee employee;    
+    private final int id; 
+    private final int tiempoLlamada; 
+    private final Employee employee;    
     
     /**
      * Metodo constructor de la clase
@@ -57,6 +57,8 @@ public class Dispatcher  extends Thread  implements Serializable
     private void dispatchCall () throws InterruptedException 
     { 
         boolean fueRecibida = false;
+        
+        //ciclo para verficar si un operador esta libre
         for (Operador operador : this.employee.getOperador()){
             if (!operador.isOcupado()){
                 try {
@@ -70,8 +72,11 @@ public class Dispatcher  extends Thread  implements Serializable
             }
         }
         
-        if (!fueRecibida){
-            for (Supervisor supervisor : this.employee.getSupervisor()){
+        if (!fueRecibida)
+        {
+            //ciclo para verficar si un supervisor esta libre
+            for (Supervisor supervisor : this.employee.getSupervisor())
+            {
                 if (!supervisor.isOcupado()){
                     try {
                         supervisor.estaOcupado(this.id, tiempoLlamada);
@@ -85,9 +90,12 @@ public class Dispatcher  extends Thread  implements Serializable
             }
         }
         
-        if (!fueRecibida){
+        if (!fueRecibida)
+        {
+            //ciclo para verficar si un director esta libre
             for (Director director : this.employee.getDirector()){
-                if (!director.isOcupado()){
+                if (!director.isOcupado())
+                {
                     try {
                         director.estaOcupado(this.id, tiempoLlamada);
                         fueRecibida = true;
@@ -99,7 +107,9 @@ public class Dispatcher  extends Thread  implements Serializable
                 }
             }
         }
-        if (!fueRecibida){
+        
+        if (!fueRecibida)
+        {
             System.out.println("TODOS NUESTROS RECURSOS NO SE ENCUENTRAN DISPONIBLES EN "
                              + "ESTE MOMENTO, ESPERE EN LA LLAMADA POR FAVOR");
         }
