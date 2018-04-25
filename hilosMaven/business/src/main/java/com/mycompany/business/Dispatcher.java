@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.entities;
+package com.mycompany.business;
 
+import com.mycompany.entities.Director;
+import com.mycompany.entities.Employee;
+import com.mycompany.entities.Operador;
+import com.mycompany.entities.Supervisor;
 import java.io.Serializable;
 
 /**

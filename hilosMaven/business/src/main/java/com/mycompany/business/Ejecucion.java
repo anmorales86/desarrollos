@@ -5,7 +5,6 @@
  */
 package com.mycompany.business;
 
-import com.mycompany.entities.Dispatcher;
 import com.mycompany.entities.Employee;
 import static java.lang.Thread.sleep;
 import java.util.concurrent.ThreadLocalRandom;
