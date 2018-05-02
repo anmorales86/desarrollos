@@ -30,7 +30,6 @@
             <groupId>com.mycompany</groupId>
             <artifactId>service</artifactId>
             <version>1.0</version>
-            <scope>test</scope>
             <type>jar</type>
         </dependency>
     </dependencies>

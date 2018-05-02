@@ -10,6 +10,7 @@ import com.mycompany.entities.Employee;
 import com.mycompany.entities.Operador;
 import com.mycompany.entities.Supervisor;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Clase Dispatcher
@@ -21,17 +22,17 @@ public class Dispatcher  extends Thread  implements Serializable
     
     private final int id; 
     private final int tiempoLlamada; 
-    private final Employee employee;    
+    private final ArrayList<Employee> listaEmploye ;
     
     /**
-     * Metodo constructor de la clase
+     * Metodo contrsuctor
      * 
-     * @param employee          Objeto donde esta la info del operador, supervisor y director
-     * @param id                Id que hace referencia a la llamada
-     * @param tiempoLlamada     Tiempo aleatoria para la llamada
+     * @param listaEmployee     Listado de los empleados
+     * @param id                Id es la referencia de la llamada
+     * @param tiempoLlamada     Tiempo de la llamada
      */
-    public Dispatcher(Employee employee, int id, int tiempoLlamada){
-        this.employee = employee;
+    public Dispatcher(ArrayList<Employee> listaEmployee, int id, int tiempoLlamada){
+        this.listaEmploye = listaEmployee;
         this.id = id;
         this.tiempoLlamada = tiempoLlamada;
     }
@@ -63,51 +64,57 @@ public class Dispatcher  extends Thread  implements Serializable
         boolean fueRecibida = false;
         
         //ciclo para verficar si un operador esta libre
-        for (Operador operador : this.employee.getOperador()){
-            if (!operador.isOcupado()){
+        for (Employee employee : this.listaEmploye)
+        {
+            if (employee.getCargo().equals("OPERADOR") && !employee.isOcupado())
+            {
                 try {
-                    operador.estaOcupado(this.id, tiempoLlamada);
+                    employee.estaOcupado(this.id, tiempoLlamada);
                     fueRecibida = true;
                 }catch(InterruptedException e){
-                    operador.estaLibre(this.id);
+                    employee.estaLibre(this.id);
                     throw e; 
                 }
-                operador.estaLibre(this.id);
+                employee.estaLibre(this.id);
             }
-        }
+        }       
+        
         
         if (!fueRecibida)
         {
             //ciclo para verficar si un supervisor esta libre
-            for (Supervisor supervisor : this.employee.getSupervisor())
+            for (Employee employee : this.listaEmploye)
             {
-                if (!supervisor.isOcupado()){
+                if (employee.getCargo().equals("SUPERVISOR") && !employee.isOcupado())
+                {
                     try {
-                        supervisor.estaOcupado(this.id, tiempoLlamada);
+                        employee.estaOcupado(this.id, tiempoLlamada);
                         fueRecibida = true;
                     }catch(InterruptedException e){
-                        supervisor.estaLibre(this.id);
+                        employee.estaLibre(this.id);
                         throw e; 
                     }
-                    supervisor.estaLibre(this.id);
+                    employee.estaLibre(this.id);
                 }
             }
+        
         }
         
         if (!fueRecibida)
         {
-            //ciclo para verficar si un director esta libre
-            for (Director director : this.employee.getDirector()){
-                if (!director.isOcupado())
-                {
+            //ciclo para verficar si un director esta libre            
+            for (Employee employee : this.listaEmploye)
+            {
+                if (employee.getCargo().equals("DIRECTOR") && !employee.isOcupado())
+                {                
                     try {
-                        director.estaOcupado(this.id, tiempoLlamada);
+                        employee.estaOcupado(this.id, tiempoLlamada);
                         fueRecibida = true;
                     }catch(InterruptedException e){
-                        director.estaLibre(this.id);
+                        employee.estaLibre(this.id);
                         throw e; 
                     }
-                    director.estaLibre(this.id);
+                    employee.estaLibre(this.id);
                 }
             }
         }

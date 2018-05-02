@@ -5,6 +5,8 @@
  */
 package com.mycompany.entities;
 
+import static java.lang.Thread.sleep;
+
 /**
  * Clase principal de Empleados
  * 
@@ -13,60 +15,68 @@ package com.mycompany.entities;
 public class Employee 
 {
     
-    private Operador [] operador;
-    private Supervisor [] supervisor;
-    private Director [] director;
+    private String nombre;
+    private String cargo;
+    private boolean ocupado;
+    
+    
+    public Employee(String nombre, String cargo, boolean ocupado){
+        this.nombre = nombre;
+        this.cargo = cargo;
+        this.ocupado = ocupado;
+    }
     
     /**
-     * Contructor principal para incializar los arreglos de las clases
-     * operador, supervisor, director con su respectiva informacion
+     * Metodo que permite asignar la llamada al director
      * 
-     * @param cantOperador      Cantidad de operadores
-     * @param cantSupervisor    Cantidad de supervisores
-     * @param cantDirector      Cantidad de directores
+     * @param id                        Id de la llamada   
+     * @param tiempoLlamada             Tiempo de la llamada que va a durar
+     * @throws InterruptedException 
      */
-    public Employee(int cantOperador, int cantSupervisor, int cantDirector){
-        this.operador = new Operador[cantOperador];
-        this.supervisor = new Supervisor[cantSupervisor];
-        this.director = new Director[cantDirector];
-        
-        // se le asigna un nombre al operador terminado con la secuencia del ciclo
-        for (int i = 0;i<this.operador.length;i++){
-            this.operador[i] = new Operador("Luis - "+i);
-        }
-        // se le asigna un nombre al supervisor terminado con la secuencia del ciclo
-        for (int i = 0;i<this.supervisor.length;i++){
-            this.supervisor[i] = new Supervisor("Rocio - "+i);
-        }
-        // se le asigna un nombre al director terminado con la secuencia del ciclo
-        for (int i = 0;i<this.director.length;i++){
-            this.director[i] = new Director("Angel - "+i);
-        }
+    public synchronized void estaOcupado (int id, int tiempoLlamada)  throws InterruptedException  
+    {        
+        System.out.println (" La llamada -> "+id+" fue tomada por -> "+this.nombre); 
+        this.ocupado = true;
+        sleep(tiempoLlamada);         
+    } 
+    
+    /**
+     * Metodo que permite liberar el recurso, cuando su llamada es terminada
+     * 
+     * @param id    Id de la llamada
+     */
+    public synchronized void estaLibre (int id) { 
+        ocupado = false ; 
+        System.out.println (" La llamada -> "+id+" se termino"); 
+        notifyAll (); 
+    } 
+    
+
+    public String getNombre() {
+        return nombre;
     }
 
-    public Operador[] getOperador() {
-        return operador;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setOperador(Operador[] operador) {
-        this.operador = operador;
+    public String getCargo() {
+        return cargo;
     }
 
-    public Supervisor[] getSupervisor() {
-        return supervisor;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
-    public void setSupervisor(Supervisor[] supervisor) {
-        this.supervisor = supervisor;
+    public boolean isOcupado() {
+        return ocupado;
     }
 
-    public Director[] getDirector() {
-        return director;
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
     }
-
-    public void setDirector(Director[] director) {
-        this.director = director;
-    }
+    
+    
     
     
     

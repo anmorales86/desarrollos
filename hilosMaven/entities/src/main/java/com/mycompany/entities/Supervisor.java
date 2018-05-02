@@ -5,37 +5,24 @@
  */
 package com.mycompany.entities;
 
-import static java.lang.Thread.sleep;
-
 /**
  * Clase del supervisor
  * 
  * @author ANDERSON
  */
-public class Supervisor 
+public class Supervisor extends Employee
 {
     
-    private String nombre;
-    private boolean ocupado ;    
-    
-    public Supervisor(String nombre) { 
-        this.nombre = nombre;
-        this.ocupado = false;
-    }
-    
     /**
-     * Metodo que permite asignar la llamada al director
+     * Metodo constructor
      * 
-     * @param id                        Id de la llamada   
-     * @param tiempoLlamada             Tiempo de la llamada que va a durar
-     * @throws InterruptedException 
+     * @param nombre    Nombre de la persona
+     * @param cargo     Cargo que tiene la persona
+     * @param ocupado   Si la persona esta ocupada o no
      */
-    public synchronized void estaOcupado (int id, int tiempoLlamada)  throws InterruptedException  
-    {        
-        System.out.println (" La llamada -> "+id+" fue tomada por -> "+this.nombre); 
-        this.ocupado = true;
-        sleep(tiempoLlamada);         
-    } 
+    public Supervisor(String nombre, String cargo, boolean ocupado) { 
+        super(nombre,cargo, ocupado);       
+    }
     
     /**
      * Metodo que permite liberar el recurso, cuando su llamada es terminada
@@ -43,27 +30,42 @@ public class Supervisor
      * @param id    Id de la llamada
      */
     public synchronized void estaLibre (int id) { 
-        ocupado = false ; 
+        this.setOcupado(false);
         System.out.println (" La llamada -> "+id+" se termino"); 
         notifyAll (); 
     } 
 
-    public boolean isOcupado() {
-        return ocupado;
-    }
+   
 
-    public void setOcupado(boolean ocupado) {
-        this.ocupado = ocupado;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
+    @Override
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        super.setNombre(nombre); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNombre() {
+        return super.getNombre(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setCargo(String cargo) {
+        super.setCargo(cargo); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCargo() {
+        return super.getCargo(); //To change body of generated methods, choose Tools | Templates.
     }
     
+    @Override
+    public void setOcupado(boolean ocupado) {
+        super.setOcupado(ocupado); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean isOcupado() {
+        return super.isOcupado(); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }
